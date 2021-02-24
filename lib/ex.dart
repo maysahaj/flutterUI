@@ -9,24 +9,31 @@ import 'package:flutter/material.dart';
     body: CustomScrollView(
         slivers: <Widget>[
         SliverAppBar(
-          pinned: true,
-          expandedHeight: 200,
-          floating: true,
-          flexibleSpace: Stack(
-            children: <Widget>[
-              //image background
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {},
-                  )),
-            ],
-          ),
-        ),SliverPadding(
+          leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    // Do something
+                  }
+                ),
+          expandedHeight: 220.0,
+                floating: true,
+                pinned: true,
+                snap: true,
+                elevation: 50,
+                backgroundColor: Colors.pink,
+                flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text('Title',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: Image.network(
+                      'https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                      fit: BoxFit.cover,
+                    )
+                ),
+              ),SliverPadding(
           padding: EdgeInsets.all(10.0),
           sliver: SliverList(
             delegate: SliverChildListDelegate(
