@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
             ],
           ),
         ),SliverPadding(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(10.0),
           sliver: SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -38,7 +38,7 @@ import 'package:flutter/material.dart';
             children: <Widget>[
 
           Padding(
-            padding: const EdgeInsets.only(left: 5,right:5),
+            padding: const EdgeInsets.only(left:0,right:0),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
