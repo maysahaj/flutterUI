@@ -8,79 +8,35 @@ import 'package:flutter/material.dart';
         backgroundColor: Colors.black,
     body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-                leading: IconButton(
-                  icon: Icon(Icons.filter_1),
-                  onPressed: () {
-                    // Do something
-                  }
-                ),
-                expandedHeight: 220.0,
-                floating: true,
-                pinned: true,
-                snap: true,
-                elevation: 50,
-                backgroundColor: Colors.pink,
-                flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: Text('Title',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                        )),
-                    background: Image.network(
-                      'https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-                      fit: BoxFit.cover,
-                    )
-                )),
-        SliverPadding(
+        SliverAppBar(
+          pinned: true,
+          expandedHeight: 200,
+          floating: true,
+          flexibleSpace: Stack(
+            children: <Widget>[
+              //image background
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: FloatingActionButton(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {},
+                  )),
+            ],
+          ),
+        ),SliverPadding(
           padding: EdgeInsets.all(16.0),
           sliver: SliverList(
             delegate: SliverChildListDelegate(
               [
-                 Stack(
+                
+            Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
 
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/3.5,
-                
-              ),
-              Positioned(
-                top: 10,
-                left: 0,
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/ht.jpg")
-                    ),
-                    border: Border.all(color: Colors.blue,width: 3)
-                  ),
-                ),
-              ),
-              Positioned(
-                top:8,
-                right: 10,
-                height: 40,
-                width: 100,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.blue,width: 2)
-                  ),
-                  child: Center(child: Text("follow",style: TextStyle(fontSize:16,color: Colors.blue,fontWeight: FontWeight.bold),)),
-                ),
-              ),
-
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.only(left: 5,right:5),
             child: Column(
@@ -310,11 +266,11 @@ import 'package:flutter/material.dart';
                 // Scrollable horizontal widget here
               ],
             ),
-          ),
-        ),
+          
+        
       ],
     ),
-      );
+          ),),],),);
 
  }
 
