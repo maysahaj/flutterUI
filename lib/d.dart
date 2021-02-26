@@ -1,63 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/colors.dart';
-import 'package:flutter_ui/d.dart';
 import 'package:flutter_ui/ggg.dart';
 
-void main() => runApp(MaterialApp(
-  home: MyAppp(),
-  debugShowCheckedModeBanner: false,
-));
-class MyApp extends StatelessWidget {
+
+
+class MyAppp extends StatefulWidget {
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
+  TabController tabController;
+  Widget _tabBarView;
+  var scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    _tabBarView = TabBarView(children: [
+      DemoTab(parentController : scrollController),
+      DemoTab(parentController : scrollController),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        leading: Icon(Icons.arrow_back,color: Colors.white,),
-        title: Text("Maysa Hajaj",style: TextStyle(
-          color: Colors.white,
-        ),),
-      ),
-      body: ListView(
-       scrollDirection: Axis.vertical,
-        shrinkWrap: false,
-        children: <Widget>[
-          Stack(
+      backgroundColor: Colors.black,
+      body: CustomScrollView(
+          slivers: [
+            
+          SliverPersistentHeader(
+            
+                floating: true,
+                pinned: true,
+                
+               
+              delegate: MySliverAppBar(expandedHeight: 200),
+            ),
+          
+           SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                 Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
 
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/3.5,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/1.jpg",),
-                      fit: BoxFit.cover,
-                    )
-                ),
-              ),
+                height: MediaQuery.of(context).size.height/7.5,
+             ),
+             
               Positioned(
-                top: 170,
-                left: 5,
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/ht.jpg")
-                    ),
-                    border: Border.all(color: Colors.blue,width: 3)
-                  ),
-                ),
-              ),
-              Positioned(
-                top:235,
+                top:10,
                 right: 10,
                 height: 40,
                 width: 100,
@@ -72,7 +70,6 @@ class MyApp extends StatelessWidget {
 
             ],
           ),
-          SizedBox(height: 60,),
           Padding(
             padding: const EdgeInsets.only(left: 5,right:5),
             child: Column(
@@ -299,9 +296,94 @@ class MyApp extends StatelessWidget {
               ),
           ),
 
-        ],
-      ),
-    );
+        
+                // Scrollable horizontal widget here
+              ],
+            ),
+          ),
+          ],
+        ),
+      );
   }
 }
 
+class DemoTab extends StatefulWidget {
+
+  DemoTab({ 
+    this.parentController
+  });
+
+  final ScrollController parentController;
+
+
+  DemoTabState createState() => DemoTabState();
+}
+
+class DemoTabState extends State<DemoTab>
+    with AutomaticKeepAliveClientMixin<DemoTab> {
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+  ScrollController _scrollController;
+
+  ScrollPhysics ph;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+
+
+    _scrollController.addListener((){
+
+
+      var innerPos      = _scrollController.position.pixels;
+      var maxOuterPos   = widget.parentController.position.maxScrollExtent;
+      var currentOutPos = widget.parentController.position.pixels;
+
+      if(innerPos >= 0 && currentOutPos < maxOuterPos) {
+
+        //print("parent pos " + currentOutPos.toString() + "max parent pos " + maxOuterPos.toString());
+        widget.parentController.position.jumpTo(innerPos+currentOutPos);
+
+      }else{
+        var currenParentPos = innerPos + currentOutPos;
+        widget.parentController.position.jumpTo(currenParentPos);
+      }
+
+
+    });
+
+
+
+
+
+    widget.parentController.addListener((){
+      var currentOutPos = widget.parentController.position.pixels;
+      if(currentOutPos <= 0) {
+        _scrollController.position.jumpTo(0);
+      }
+    });
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      key: UniqueKey(),
+      controller: _scrollController,
+      itemBuilder: (b, i) {
+        return Container(
+          height: 50,
+          color: Colors.green,
+          margin: EdgeInsets.only(bottom: 3),
+          child: Text(
+            i.toString(),
+          ),
+        );
+      },
+      itemCount: 30,
+    );
+  }
+}

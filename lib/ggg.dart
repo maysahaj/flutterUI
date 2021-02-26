@@ -1,51 +1,49 @@
 import 'package:flutter/material.dart';
 
-
-  class MyEx extends StatelessWidget {
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: Colors.black,
-    body: CustomScrollView(
-        slivers: <Widget>[
-        SliverAppBar(
-          leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    // Do something
-                  }
-                ),
-          expandedHeight: 220.0,
-                floating: true,
-                pinned: true,
-                snap: true,
-                elevation: 50,
-                backgroundColor: Colors.pink,
-                flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: Text('Title',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                        )),
-                    background: Image.network(
-                      'https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-                      fit: BoxFit.cover,
-                    )
-                ),
-              ),SliverPadding(
-          padding: EdgeInsets.all(10.0),
-          sliver: SliverList(
+class Sample2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+    
+      child: Material(
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              delegate: MySliverAppBar(expandedHeight: 200),
+              pinned: true,
+            ),
+           SliverList(
             delegate: SliverChildListDelegate(
               [
-                
-            Stack(
+                 Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
 
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height/5.5,
+             ),
+             
+              Positioned(
+                top:10,
+                right: 10,
+                height: 40,
+                width: 100,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.blue,width: 2)
+                  ),
+                  child: Center(child: Text("follow",style: TextStyle(fontSize:16,color: Colors.blue,fontWeight: FontWeight.bold),)),
+                ),
+              ),
+
+            ],
+          ),
+          SizedBox(height: 60,),
           Padding(
-            padding: const EdgeInsets.only(left:0,right:0),
+            padding: const EdgeInsets.only(left: 5,right:5),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,15 +268,69 @@ import 'package:flutter/material.dart';
               ),
           ),
 
+        
                 // Scrollable horizontal widget here
               ],
             ),
+          ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MySliverAppBar extends SliverPersistentHeaderDelegate {
+  MySliverAppBar({@required this.expandedHeight});
+
+  final double expandedHeight;
+
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  double get minExtent => kToolbarHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Stack(
+  
+      fit: StackFit.expand,
+      overflow: Overflow.visible,
+      children: [
+        Image.asset("assets/images/1.jpg",fit: BoxFit.cover,
+        ),
+        Center(
+          child: Opacity(
+            opacity: shrinkOffset / expandedHeight,
+         ),
+        ),
+        Positioned(
+          top: expandedHeight / 1.4 - shrinkOffset,
+          left: 2,
           
-        
+          child: Opacity(
+            opacity: (1 - shrinkOffset / expandedHeight),
+            child:  Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/ht.jpg")
+                    ),
+                    border: Border.all(color: Colors.blue,width: 3)
+                  ),
+                ),
+              ),
+        ),
       ],
-    ),
-          ),),],),);
-
- }
-
+    );
+  }
 }
