@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ui/colors.dart';
 import 'package:flutter_ui/d.dart';
 import 'package:flutter_ui/ggg.dart';
+import 'package:flutter_ui/maysa.dart';
 
 void main() => runApp(MaterialApp(
-  home: MyAppp(),
+  home: MainCollapsingToolbar(),
   debugShowCheckedModeBanner: false,
 ));
 class MyApp extends StatelessWidget {

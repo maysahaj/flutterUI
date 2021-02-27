@@ -309,15 +309,17 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             opacity: shrinkOffset / expandedHeight,
          ),
         ),
-        Positioned(
-          top: expandedHeight / 1.4 - shrinkOffset,
-          left: 2,
-          
+         Positioned(
+          top: expandedHeight / 2 - shrinkOffset,
+          left:1,
           child: Opacity(
             opacity: (1 - shrinkOffset / expandedHeight),
-            child:  Container(
-                  height: 100,
-                  width: 100,
+            child: SizedBox(
+                height: expandedHeight,
+                width: MediaQuery.of(context).size.width /3.5,
+                child:  Container(
+                  height: 80,
+                  width: 80,
                   decoration: BoxDecoration(
                     
                     shape: BoxShape.circle,
@@ -328,9 +330,11 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                     border: Border.all(color: Colors.blue,width: 3)
                   ),
                 ),
+             
               ),
-        ),
+            ),),
       ],
     );
   }
+  
 }

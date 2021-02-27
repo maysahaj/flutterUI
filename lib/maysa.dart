@@ -1,100 +1,128 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/colors.dart';
-import 'package:flutter_ui/ggg.dart';
 
-
-
-class MyAppp extends StatefulWidget {
-  MyAppState createState() => MyAppState();
+class MainCollapsingToolbar extends StatefulWidget {
+  @override
+  _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
 
-class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
-  TabController tabController;
-  Widget _tabBarView;
-  var scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(
-      length: 2,
-      vsync: this,
-    );
-    _tabBarView = TabBarView(children: [
-      DemoTab(parentController : scrollController),
-      DemoTab(parentController : scrollController),
-    ]);
-  }
-
+class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: CustomScrollView(
-        
-          slivers: [
-           SliverAppBar(
-      floating: true,
+      body: DefaultTabController(
+        length: 2,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                expandedHeight: 200.0,
+                floating: false,
                 pinned: true,
-                snap: true,
-                elevation: 50,
-      backgroundColor: kPrimaryColo2,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.arrow_back,size:26,),
-      ),
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.more_vert,size:26,)
-        )
-      ],
-      flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.pin,
-        stretchModes: 
-        [
-          StretchMode.zoomBackground,
-          StretchMode.blurBackground
-        ],
-      ),
-    ),
-          SliverPersistentHeader(
-            
-                floating: true,
-                
-               
-              delegate: MySliverAppBar(expandedHeight: 200),
-            ),
-          
-           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                 Stack(
+                flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    
+                   background: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+             
+             
+           Container(
+                margin: EdgeInsets.only(top: 16.0),
+                padding: EdgeInsets.only(left: 32.0, right: 32.0),
+                child: Text(
+                  'some text',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'PlayfairDisplay',
+                      fontSize: 16.0),
+                )),
+                Container(
+                margin: EdgeInsets.only(top: 16.0),
+                padding: EdgeInsets.only(left: 32.0, right: 32.0),
+                child: Text(
+                  'some text',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'PlayfairDisplay',
+                      fontSize: 16.0),
+                )),
+           Positioned(
+                top: 400,
+                left: 5,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/ht.jpg")
+                    ),
+                    border: Border.all(color: Colors.blue,width: 3)
+                  ),
+                ),
+              ),],
+        ),),
+              ),
+            ];
+          },
+          body: ListView(
+       scrollDirection: Axis.vertical,
+        shrinkWrap: false,
+        children: <Widget>[
+          Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
-             
+
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/6.5,
-             ),
-             
+                height: MediaQuery.of(context).size.height/3.5,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/1.jpg",),
+                      fit: BoxFit.cover,
+                    )
+                ),
+              ),
               Positioned(
-                top:10,
+                top: 170,
+                left: 5,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/ht.jpg")
+                    ),
+                    border: Border.all(color: Colors.blue,width: 3)
+                  ),
+                ),
+              ),
+              Positioned(
+                top:235,
                 right: 10,
                 height: 40,
                 width: 100,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.blue,width: 1.5)
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.blue,width: 2)
                   ),
-                  child: Center(child: Text("Follow",style: TextStyle(fontSize:18,color: Colors.blue,fontWeight: FontWeight.bold),)),
+                  child: Center(child: Text("follow",style: TextStyle(fontSize:16,color: Colors.blue,fontWeight: FontWeight.bold),)),
                 ),
               ),
 
             ],
           ),
+          SizedBox(height: 60,),
           Padding(
             padding: const EdgeInsets.only(left: 5,right:5),
             child: Column(
@@ -321,94 +349,35 @@ class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
               ),
           ),
 
-        
-                // Scrollable horizontal widget here
-              ],
-            ),
-          ),
-          ],
+        ],
+      ),
+    
         ),
-      );
-  }
-}
-
-class DemoTab extends StatefulWidget {
-
-  DemoTab({ 
-    this.parentController
-  });
-
-  final ScrollController parentController;
-
-
-  DemoTabState createState() => DemoTabState();
-}
-
-class DemoTabState extends State<DemoTab>
-    with AutomaticKeepAliveClientMixin<DemoTab> {
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-
-  ScrollController _scrollController;
-
-  ScrollPhysics ph;
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-
-
-    _scrollController.addListener((){
-
-
-      var innerPos      = _scrollController.position.pixels;
-      var maxOuterPos   = widget.parentController.position.maxScrollExtent;
-      var currentOutPos = widget.parentController.position.pixels;
-
-      if(innerPos >= 0 && currentOutPos < maxOuterPos) {
-
-        //print("parent pos " + currentOutPos.toString() + "max parent pos " + maxOuterPos.toString());
-        widget.parentController.position.jumpTo(innerPos+currentOutPos);
-
-      }else{
-        var currenParentPos = innerPos + currentOutPos;
-        widget.parentController.position.jumpTo(currenParentPos);
-      }
-
-
-    });
-
-
-
-
-
-    widget.parentController.addListener((){
-      var currentOutPos = widget.parentController.position.pixels;
-      if(currentOutPos <= 0) {
-        _scrollController.position.jumpTo(0);
-      }
-    });
-
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      key: UniqueKey(),
-      controller: _scrollController,
-      itemBuilder: (b, i) {
-        return Container(
-          height: 50,
-          color: Colors.green,
-          margin: EdgeInsets.only(bottom: 3),
-          child: Text(
-            i.toString(),
-          ),
-        );
-      },
-      itemCount: 30,
+      ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate(this._tabBar);
+
+  final TabBar _tabBar;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Container(
+      child: _tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }

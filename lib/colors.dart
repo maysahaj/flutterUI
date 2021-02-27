@@ -11,5 +11,5 @@ Color _colorFromHex(String hexColor) {
 }
 
 Color kPrimaryColor = _colorFromHex("#000004");
-Color kPrimaryColo2 = _colorFromHex("#C35617");
+Color kPrimaryColo2 = _colorFromHex("#C35817");
 
