@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/colors.dart';
+import 'package:flutter_ui/tablist.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 class MyHomePage extends StatelessWidget {
   @override
@@ -10,15 +11,13 @@ class MyHomePage extends StatelessWidget {
         builder: (context) =>
         new SliverFab(
           
-          floatingWidget: FloatingActionButton(
-            
-            tooltip: 'Increment',
-            onPressed: () =>
-                Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text("You clicked FAB!"))),
-            child: Container(
-                  height: 80,
-                  width: 80,
+          
+          floatingWidget:Container(
+          
+          child:Positioned(
+              child:  Container(
+            width: 120,
+                 height: 120,
                   decoration: BoxDecoration(
                     
                     shape: BoxShape.circle,
@@ -29,22 +28,25 @@ class MyHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.blue,width: 3)
                   ),
                 ),
-             
-               ),
-          floatingPosition: FloatingPosition(left: 2),
+         )
+),floatingPosition: FloatingPosition(left: 2,top: -35),
          
           expandedHeight: 256.0,
           slivers: <Widget>[
             new SliverAppBar(
               expandedHeight: 256.0,
+           
               pinned: true,
               backgroundColor: kPrimaryColo2,
               leading: IconButton(
-        onPressed: () {},
+              onPressed: () {},
+        
         icon: Icon(Icons.arrow_back,size:26,),
       ),
+      
       actions: <Widget>[
         IconButton(
+          
           onPressed: () {},
           icon: Icon(Icons.more_vert,size:26,)
         )
@@ -56,7 +58,10 @@ class MyHomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+              
+              
             ),
+            
             SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -67,7 +72,7 @@ class MyHomePage extends StatelessWidget {
              
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/6.5,
+                height: MediaQuery.of(context).size.height/10,
              ),
              
               Positioned(
@@ -187,8 +192,11 @@ class MyHomePage extends StatelessWidget {
                   SizedBox(height: 15,),
                   Text("Not followed by anyone you're following",style: TextStyle(fontSize:16,color: Colors.grey,),),
                   SizedBox(height: 15,),
+                  CatagoriesLIst(),
+                  
                   Row(
                     children: <Widget>[
+                      
                       Padding(padding: EdgeInsets.only(left:5)),
                       Text("Tweets",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.blue,fontSize: 18),),
                       SizedBox(width: 18,),
