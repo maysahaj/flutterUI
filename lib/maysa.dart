@@ -1,60 +1,24 @@
 import 'package:flutter/material.dart';
-
-class MainCollapsingToolbar extends StatefulWidget {
-  @override
-  _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
-}
-
-class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
+import 'package:flutter_ui/colors.dart';
+import 'package:sliver_fab/sliver_fab.dart';
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 200.0,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    
-                   background: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-             
-             
-           Container(
-                margin: EdgeInsets.only(top: 16.0),
-                padding: EdgeInsets.only(left: 32.0, right: 32.0),
-                child: Text(
-                  'some text',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'PlayfairDisplay',
-                      fontSize: 16.0),
-                )),
-                Container(
-                margin: EdgeInsets.only(top: 16.0),
-                padding: EdgeInsets.only(left: 32.0, right: 32.0),
-                child: Text(
-                  'some text',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'PlayfairDisplay',
-                      fontSize: 16.0),
-                )),
-           Positioned(
-                top: 400,
-                left: 5,
-                child: Container(
-                  height: 100,
-                  width: 100,
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: new Builder(
+        builder: (context) =>
+        new SliverFab(
+        
+          floatingWidget: FloatingActionButton(
+            
+            tooltip: 'Increment',
+            onPressed: () =>
+                Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text("You clicked FAB!"))),
+            child: Container(
+                  height: 80,
+                  width: 80,
                   decoration: BoxDecoration(
                     
                     shape: BoxShape.circle,
@@ -65,64 +29,62 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                     border: Border.all(color: Colors.blue,width: 3)
                   ),
                 ),
-              ),],
-        ),),
+             
+               ),
+          floatingPosition: FloatingPosition(left: 2),
+          expandedHeight: 256.0,
+          slivers: <Widget>[
+            new SliverAppBar(
+              expandedHeight: 256.0,
+              pinned: true,
+              backgroundColor: kPrimaryColo2,
+              leading: IconButton(
+        onPressed: () {},
+        icon: Icon(Icons.arrow_back,size:26,),
+      ),
+      actions: <Widget>[
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.more_vert,size:26,)
+        )
+      ],
+      
+              flexibleSpace: new FlexibleSpaceBar(
+                background: new Image.asset(
+                  "assets/images/1.jpg",
+                  fit: BoxFit.cover,
+                ),
               ),
-            ];
-          },
-          body: ListView(
-       scrollDirection: Axis.vertical,
-        shrinkWrap: false,
-        children: <Widget>[
-          Stack(
+            ),
+            SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
-
+             
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/3.5,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/1.jpg",),
-                      fit: BoxFit.cover,
-                    )
-                ),
-              ),
+                height: MediaQuery.of(context).size.height/6.5,
+             ),
+             
               Positioned(
-                top: 170,
-                left: 5,
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/ht.jpg")
-                    ),
-                    border: Border.all(color: Colors.blue,width: 3)
-                  ),
-                ),
-              ),
-              Positioned(
-                top:235,
+                top:10,
                 right: 10,
                 height: 40,
                 width: 100,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.blue,width: 2)
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(color: Colors.blue,width: 1.5)
                   ),
-                  child: Center(child: Text("follow",style: TextStyle(fontSize:16,color: Colors.blue,fontWeight: FontWeight.bold),)),
+                  child: Center(child: Text("Follow",style: TextStyle(fontSize:18,color: Colors.blue,fontWeight: FontWeight.bold),)),
                 ),
               ),
 
             ],
           ),
-          SizedBox(height: 60,),
           Padding(
             padding: const EdgeInsets.only(left: 5,right:5),
             child: Column(
@@ -337,8 +299,11 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                                   Icon(Icons.favorite,color: Colors.red,),
                                   SizedBox(width: 10,),
                                   Text("1.6k",style: TextStyle(color: Colors.grey),),
+                                
                                 ],
-                              )
+                              ),
+                              
+                              
                             ],
                           ),
 
@@ -349,35 +314,14 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
               ),
           ),
 
-        ],
-      ),
-    
+        
+                // Scrollable horizontal widget here
+              ],
+            ),
+          ),
+          ],
         ),
       ),
     );
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
-      child: _tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

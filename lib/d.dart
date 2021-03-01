@@ -38,6 +38,7 @@ class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
                 pinned: true,
                 snap: true,
                 elevation: 50,
+                stretch: true,
       backgroundColor: kPrimaryColo2,
       leading: IconButton(
         onPressed: () {},
@@ -59,17 +60,15 @@ class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
       ),
     ),
           SliverPersistentHeader(
-            
                 floating: true,
-                
-               
+                pinned: true,  
               delegate: MySliverAppBar(expandedHeight: 200),
             ),
           
            SliverList(
             delegate: SliverChildListDelegate(
               [
-                 Stack(
+                Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomLeft,
             children: <Widget>[
@@ -309,8 +308,11 @@ class MyAppState extends State<MyAppp> with SingleTickerProviderStateMixin {
                                   Icon(Icons.favorite,color: Colors.red,),
                                   SizedBox(width: 10,),
                                   Text("1.6k",style: TextStyle(color: Colors.grey),),
+                                
                                 ],
-                              )
+                              ),
+                              
+                              
                             ],
                           ),
 

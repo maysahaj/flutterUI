@@ -5,7 +5,7 @@ import 'package:flutter_ui/ggg.dart';
 import 'package:flutter_ui/maysa.dart';
 
 void main() => runApp(MaterialApp(
-  home: MainCollapsingToolbar(),
+  home: MyHomePage(),
   debugShowCheckedModeBanner: false,
 ));
 class MyApp extends StatelessWidget {

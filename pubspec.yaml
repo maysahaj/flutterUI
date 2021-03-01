@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  sliver_fab: "^1.0.0"
+  stretchy_header: ^1.0.8
   font_awesome_flutter: ^8.11.0
   flutter_vector_icons: ^0.2.1
   flutter:
