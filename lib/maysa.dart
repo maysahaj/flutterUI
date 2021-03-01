@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
       body: new Builder(
         builder: (context) =>
         new SliverFab(
-        
+          
           floatingWidget: FloatingActionButton(
             
             tooltip: 'Increment',
@@ -32,6 +32,7 @@ class MyHomePage extends StatelessWidget {
              
                ),
           floatingPosition: FloatingPosition(left: 2),
+         
           expandedHeight: 256.0,
           slivers: <Widget>[
             new SliverAppBar(
