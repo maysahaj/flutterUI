@@ -7,13 +7,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.black,
-      body: new Builder(
+      body: DefaultTabController(
+    length: 3,
+    child:new Builder(
         builder: (context) =>
         new SliverFab(
           
-          
           floatingWidget:Container(
-          
           child:Positioned(
               child:  Container(
             width: 120,
@@ -60,8 +60,28 @@ class MyHomePage extends StatelessWidget {
               ),
               
               
-            ),
-            
+            ),  
+             new SliverPadding(
+                padding: new EdgeInsets.only(top:60.0),
+                sliver: new SliverList(
+                  delegate: new SliverChildListDelegate([
+                    TabBar(
+                      labelColor: Colors.red,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: [
+                        new Tab(icon: new Icon(Icons.info), text: "Tab 1"),
+                        new Tab(
+                            icon: new Icon(Icons.lightbulb_outline),
+                            text: "Tab 2"),
+                            new Tab(
+                            icon: new Icon(Icons.lightbulb_outline),
+                            text: "Tab 2"),
+                      ],
+                    ),
+                  ]),
+                ),
+              ),
+                      
             SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -193,33 +213,7 @@ class MyHomePage extends StatelessWidget {
                   Text("Not followed by anyone you're following",style: TextStyle(fontSize:16,color: Colors.grey,),),
                   SizedBox(height: 15,),
                   CatagoriesLIst(),
-                  
-                  Row(
-                    children: <Widget>[
-                      
-                      Padding(padding: EdgeInsets.only(left:5)),
-                      Text("Tweets",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.blue,fontSize: 18),),
-                      SizedBox(width: 18,),
-                      Text("Tweets & replies",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.grey,fontSize: 18),),
-                      SizedBox(width: 18,),
-                      Text("Media",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.grey,fontSize: 18),),
-                      SizedBox(width: 18,),
-                      Text("Likes",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.grey,fontSize: 18),),
-                    ],
-                  ),
-                   SizedBox(height: 5,),
-                  Row(children: <Widget>[
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
-                  child: Container(
-                    height: 4,
-                    width: 70,
-                    color: Colors.blue,
-                  ),
-                  ),
-                ],),
-                 
-                  SizedBox(height:8,),
-                  Container(
+                 Container(
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: <Widget>[
@@ -330,7 +324,7 @@ class MyHomePage extends StatelessWidget {
           ),
           ],
         ),
-      ),
+      ),)
     );
   }
 }
