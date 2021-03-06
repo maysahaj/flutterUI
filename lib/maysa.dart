@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/colors.dart';
-import 'package:flutter_ui/tablist.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 class MyHomePage extends StatelessWidget {
   @override
@@ -194,7 +193,6 @@ class MyHomePage extends StatelessWidget {
                   SizedBox(height: 15,),
                   Text("Not followed by anyone you're following",style: TextStyle(fontSize:16,color: Colors.grey,),),
                   SizedBox(height: 15,),
-                  CatagoriesLIst(),
                  Container(
                     width: MediaQuery.of(context).size.width,
                     child: Column(
