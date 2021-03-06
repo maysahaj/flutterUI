@@ -1,17 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/colors.dart';
-import 'package:flutter_ui/tablist.dart';
 import 'package:sliver_fab/sliver_fab.dart';
-class MyHomePage extends StatelessWidget {
+
+
+class Mkk extends StatefulWidget {
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<Mkk> with SingleTickerProviderStateMixin {
+  TabController tabController;
+  Widget _tabBarView;
+  var scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    _tabBarView = TabBarView(children: [
+      DemoTab(parentController : scrollController),
+      DemoTab(parentController : scrollController),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
-      body: DefaultTabController(
-    length: 3,
-    child:new Builder(
-        builder: (context) =>
-        new SliverFab(
+    return Scaffold(
+      body: NestedScrollView(
+          controller: scrollController,
+          physics: ScrollPhysics(parent: PageScrollPhysics()),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+               new SliverFab(
           
           floatingWidget:Container(
           child:Positioned(
@@ -194,108 +216,7 @@ class MyHomePage extends StatelessWidget {
                   SizedBox(height: 15,),
                   Text("Not followed by anyone you're following",style: TextStyle(fontSize:16,color: Colors.grey,),),
                   SizedBox(height: 15,),
-                  CatagoriesLIst(),
-                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          leading: Container(
-                            height: 60,
-                            width:60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.blue,width: 2)
-                            ),
-                            child: CircleAvatar(
-
-                              backgroundImage: AssetImage("assets/images/ht.jpg"),
-                      
-                              )
-                            ),
-
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Icon(Icons.push_pin,color: Colors.grey,size: 22,),
-                                  SizedBox(width: 5,),
-                                  Text("Pinned Tweet",style: TextStyle(fontSize:16,color: Colors.grey,fontWeight: FontWeight.bold),),                
-                                  SizedBox(height:8,),
-                                ]
-                              
-                              ),
-                              SizedBox(height:10,),
-                              Row(
-                                children: <Widget>[
-                                  Text("MAYSA", style: TextStyle(fontWeight: FontWeight.bold,
-                                  color: Colors.white,fontSize:20),),
-                                  SizedBox(width:3,),
-                                  Icon(Icons.check_circle,color: Colors.blue,size:20,),
-                                  SizedBox(width:3,),
-                                  Text("@MAYSA", style: TextStyle(color: Colors.grey,fontSize:15)),
-                                
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-                              Text("TouchDown Confirmed. The",style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                              ),),  
-                             Row(
-                              children: <Widget>[ 
-                                Text("#CountDownToMars",style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 16
-                            ),
-                            ),
-                            SizedBox(width:4,),
-                            Icon(Icons.account_circle,color: Colors.deepOrange,size: 20,),
- 
-                         ]
-                        ),
-                        Text("the mission is just beginning.",style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16
-                            ),),
-                            SizedBox(height: 20,),
-                              Container(
-                                height: 150,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/photo.png"),
-                                    fit: BoxFit.cover,
-                                    
-                                  )
-                                ),
-                              ),
-                              SizedBox(height: 20,),
-                              Row(
-                                children: <Widget>[
-                                  Icon(Icons.mode_comment,color: Colors.grey,),
-                                  SizedBox(width: 50,),
-                                  Icon(Icons.repeat,color: Colors.grey,),
-                                  SizedBox(width: 10,),
-                                  Text("2k",style: TextStyle(color: Colors.grey),),
-                                  SizedBox(width: 50,),
-                                  Icon(Icons.favorite,color: Colors.red,),
-                                  SizedBox(width: 10,),
-                                  Text("1.6k",style: TextStyle(color: Colors.grey),),
-                                
-                                ],
-                              ),
-                              
-                              
-                            ],
-                          ),
-
-                        ),],
-                    ),
-                  )
-                ,],
+               ],
               ),
           ),
 
@@ -306,7 +227,114 @@ class MyHomePage extends StatelessWidget {
           ),
           ],
         ),
-      ),)
+      
+              SliverList(
+                delegate: SliverChildListDelegate(
+                    [Container(height: 300, color: Colors.blue)]),
+              ),
+            ];
+          },
+          body: DefaultTabController(
+            length: 2,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: TabBar(labelColor: Colors.grey, tabs: [
+                    Tab(
+                      text: 'One',
+                    ),
+                    Tab(
+                      text: 'two',
+                    )
+                  ]),
+                ),
+                Expanded(
+                  child: Container(child: _tabBarView),
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+}
+
+class DemoTab extends StatefulWidget {
+
+  DemoTab({ 
+    this.parentController
+  });
+
+  final ScrollController parentController;
+
+
+  DemoTabState createState() => DemoTabState();
+}
+
+class DemoTabState extends State<DemoTab>
+    with AutomaticKeepAliveClientMixin<DemoTab> {
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+  ScrollController _scrollController;
+
+  ScrollPhysics ph;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+
+
+    _scrollController.addListener((){
+
+
+      var innerPos      = _scrollController.position.pixels;
+      var maxOuterPos   = widget.parentController.position.maxScrollExtent;
+      var currentOutPos = widget.parentController.position.pixels;
+
+      if(innerPos >= 0 && currentOutPos < maxOuterPos) {
+
+        //print("parent pos " + currentOutPos.toString() + "max parent pos " + maxOuterPos.toString());
+        widget.parentController.position.jumpTo(innerPos+currentOutPos);
+
+      }else{
+        var currenParentPos = innerPos + currentOutPos;
+        widget.parentController.position.jumpTo(currenParentPos);
+      }
+
+
+    });
+
+
+
+
+
+    widget.parentController.addListener((){
+      var currentOutPos = widget.parentController.position.pixels;
+      if(currentOutPos <= 0) {
+        _scrollController.position.jumpTo(0);
+      }
+    });
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      key: UniqueKey(),
+      controller: _scrollController,
+      itemBuilder: (b, i) {
+        return Container(
+          height: 50,
+          color: Colors.green,
+          margin: EdgeInsets.only(bottom: 3),
+          child: Text(
+            i.toString(),
+          ),
+        );
+      },
+      itemCount: 30,
     );
   }
 }

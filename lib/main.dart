@@ -4,8 +4,11 @@ import 'package:flutter_ui/d.dart';
 import 'package:flutter_ui/ggg.dart';
 import 'package:flutter_ui/maysa.dart';
 
+import '2.dart';
+
+
 void main() => runApp(MaterialApp(
-  home: MyHomePage(),
+  home: Mkk(),
   debugShowCheckedModeBanner: false,
 ));
 class MyApp extends StatelessWidget {
